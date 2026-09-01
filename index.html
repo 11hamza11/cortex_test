@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORTEX TEAM - علم المناعة السرطاني | Standard Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-secondary: #121620;
+            --bg-card: #1a1f2c;
+            --text-main: #e6eef8;
+            --text-muted: #8c9bae;
+            --neon-red: #ff2a5f;
+            --neon-red-glow: rgba(255, 42, 95, 0.4);
+            --neon-orange: #ff8c00;
+            --neon-orange-glow: rgba(255, 140, 0, 0.4);
+            --neon-yellow: #ffd700;
+            --neon-yellow-glow: rgba(255, 215, 0, 0.4);
+            --neon-blue: #00f0ff;
+            --border-color: #2a3245;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding: 20px 10px;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        /* Header / Banner CORTEX Style */
+        .cortex-header {
+            text-align: center;
+            background: linear-gradient(135deg, #161b26 0%, #0d1117 100%);
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 25px var(--neon-red-glow);
+            border-radius: 16px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cortex-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,42,95,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cortex-badge {
+            display: inline-block;
+            background: var(--neon-red);
+            color: #ffffff;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 10px var(--neon-red);
+        }
+
+        .cortex-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 12px var(--neon-red-glow);
+            margin-bottom: 8px;
+        }
+
+        .cortex-subtitle {
+            color: var(--neon-yellow);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cortex-meta {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .cortex-meta div {
+            background: var(--bg-card);
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Color-coded glow headers */
+        .text-red {
+            color: var(--neon-red);
+            text-shadow: 0 0 8px var(--neon-red-glow);
+        }
+        .text-orange {
+            color: var(--neon-orange);
+            text-shadow: 0 0 8px var(--neon-orange-glow);
+        }
+        .text-yellow {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px var(--neon-yellow-glow);
+        }
+        .text-blue {
+            color: var(--neon-blue);
+        }
+
+        /* Accordion Collapsible Sections */
+        .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 42, 95, 0.15);
+        }
+
+        .accordion-header {
+            width: 100%;
+            background: var(--bg-secondary);
+            padding: 18px 20px;
+            text-align: right;
+            border: none;
+            outline: none;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-main);
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: #181f2e;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: var(--neon-blue);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+            padding: 0 20px;
+            background: var(--bg-card);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 10000px;
+            padding: 20px;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        /* Content Blocks & Boxes */
+        .content-block {
+            margin-bottom: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border-right: 4px solid var(--neon-blue);
+        }
+
+        .content-block.red-border { border-right-color: var(--neon-red); }
+        .content-block.orange-border { border-right-color: var(--neon-orange); }
+        .content-block.yellow-border { border-right-color: var(--neon-yellow); }
+
+        .section-subhead {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Alert & Exam Tip Boxes */
+        .alert-box {
+            background: linear-gradient(135deg, rgba(255, 42, 95, 0.15) 0%, rgba(20, 20, 30, 0.9) 100%);
+            border: 2px solid var(--neon-red);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 20px 0;
+            animation: alertPulse 2.5s infinite alternate;
+        }
+
+        @keyframes alertPulse {
+            0% {
+                box-shadow: 0 0 10px var(--neon-red-glow);
+                border-color: var(--neon-red);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(255, 42, 95, 0.8);
+                border-color: #ff6688;
+            }
+        }
+
+        .alert-title {
+            color: var(--neon-red);
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .strategy-box {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px dashed var(--neon-yellow);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 15px 0;
+        }
+
+        .strategy-title {
+            color: var(--neon-yellow);
+            font-weight: 800;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Action Buttons */
+        .block-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            background: var(--bg-secondary);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-action:hover {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-action.read-active {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        /* Tables & Lists */
+        ul.cortex-list, ol.cortex-list {
+            padding-right: 22px;
+            margin: 10px 0;
+        }
+
+        ul.cortex-list li, ol.cortex-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-orange), var(--neon-yellow));
+            width: 0%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- CORTEX TEAM Header Banner -->
+        <header class="cortex-header">
+            <div class="cortex-badge">CORTEX TEAM ACADEMIC ARCHIVE</div>
+            <h1 class="cortex-title">Standard Study — علم المناعة السرطاني</h1>
+            <p class="cortex-subtitle">دليلك الامتحاني الشامل بعقلية د. أحمد حامد بدران وأسلوبه في الامتحان</p>
+            
+                <div>🔥 تصميم CORTEX NEON DARK</div>
+                <div>⚡ تفاعلي مع تحكم بالأقسام</div>
+            </div>
+        </header>
+
+        <!-- Main Content Wrapper -->
+        <main id="lectureContainer">
+        <!-- قسم استراتيجية الامتحان والاستخدام -->
+        <section class="strategy-box" style="margin-bottom: 25px;">
+            <div class="strategy-title">🧭 استراتيجية الإجابة عند د. بدران</div>
+            
+            <div class="content-block yellow-border">
+                <div class="section-subhead text-yellow">⚡ الأنماط التي يجب تذكرها دائماً:</div>
+                <ul class="cortex-list">
+                    <li><strong>الفخ الأكثر شيوعاً (C=60%):</strong> تبادل وظائف الجزيئات المتشابهة — خصوصاً CD4/MHC-II مقابل CD8/MHC-I</li>
+                    <li><strong>فخ ثانٍ شائع:</strong> عكس الدلالة (مثل تضييق/توسيع الأوعية في TNF)</li>
+                </ul>
+            </div>
+
+            <div class="content-block yellow-border">
+                <div class="section-subhead text-yellow">🎯 أسلوب الامتحان:</div>
+                <ul class="cortex-list">
+                    <li>نسبة أسئلة "عدا": 70% — انتبه لكلمة عدا دائماً</li>
+                    <li>نسبة الأسئلة المباشرة (MCQ): 20%</li>
+                    <li>صح/خطأ: 10%</li>
+                    <li>لا توجد أسئلة سريرية أبداً (Clinical=0%) — الدكتور نظري بحت</li>
+                    <li>أقل أولوية من المتممة وفرط التحسس وMHC، لكنها لا تزال تُسأل بمعدل 2-3 أسئلة في الامتحان</li>
+                </ul>
+            </div>
+
+            <div class="content-block red-border">
+                <div class="section-subhead text-red">⚠️ كيف تستخدم هذه الرسالة:</div>
+                <ul class="cortex-list">
+                    <li>الفقرات 🔴🟠 ادرسها بعمق — ستُسأل عنها</li>
+                    <li>الفقرات 🟡 اقرأها بسرعة — ظهورها متوسط</li>
+                    <li>الفقرات ⚪⬛ اطلع عليها فقط</li>
+                </ul>
+            </div>
+            
+            <div class="block-actions">
+                <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ استراتيجية الامتحان</button>
+                <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+            </div>
+        </section>
+
+        <!-- Accordion Item 1: مفاهيم أولية وعلم المناعة السرطاني -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="text-yellow">🔴 مفاهيم أولية وعلم المناعة السرطاني 🟡</span></span>
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="content-block yellow-border">
+                    <div class="section-subhead text-yellow">🟥 مفاهيم أولية 🟡</div>
+                    <p>علم المناعة السرطاني (Cancer immunology) يدرس التفاعلات بين الجهاز المناعي والخلايا السرطانية، ويهدف لاكتشاف العلاقة بينهما وابتكار علاجات شافية أو مبطئة لنمو الأورام. ساهمت دراسة الاستجابة المناعية تجاه مستضدات السرطان في التشخيص وتطوير لقاحات وعلاجات جديدة.</p>
+                    <br>
+                    <p><strong>لدى الجهاز المناعي قدرة محدودة على حمايتنا من الخلايا السرطانية لعدة أسباب:</strong></p>
+                    <ol class="cortex-list">
+                        <li>تضارب داخلي بين توفير المراقبة ضد الخلايا السرطانية والحماية من المناعة الذاتية</li>
+                        <li>تتكاثر الخلايا السرطانية بسرعة، مما يجعلها "هدفاً متحركاً" يصعب اقتناصه</li>
+                        <li>يمكن للأورام أن تخلق بيئة "حماية ذاتية" يتم فيها التملص من الترصد المناعي</li>
+                    </ol>
+                    <br>
+                    <p><strong>🔷 الرصد المناعي السرطاني:</strong> في عام 1957 اقترح بيرنت وتوماس أن الخلايا اللمفاوية هي الحارس المسؤول عن التعرف والقضاء على الخلايا السرطانية الناشئة، وتظهر أهمية الترصد المناعي للسرطان في حماية الخلايا المضيفة والتقليل من معدلات سرعة نمو الورم.</p>
+                    <br>
+                    <p><strong>🔷 مقاومة السرطان:</strong> لاحظ الباحثون تراجعاً ذاتياً لبعض الأورام السرطانية بعد نموها، وعُزي هذا التراجع إلى تأثير عوامل مناعية وأخرى مساعدة مثل: الالتهابات التي تحرض الجهاز المناعي، والعوامل الهرمونية، وعوامل تؤثر على تغذية الورم — ما يؤكد أن الأورام تنمو وتنشط في ظل ضعف الجهاز المناعي.</p>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 2: آليات قتل الخلية الورمية -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="text-yellow">🔴 آليات قتل الخلية الورمية 🟡</span></span>
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="content-block yellow-border">
+                    <p><strong>هناك 4 آليات لقتل الخلية الورمية:</strong></p>
+                    <br>
+                    <p><strong>1. الخلية القاتلة الطبيعية NK</strong> تتجه نحو الخلية الهدف وتلتصق بها التصاقاً وثيقاً، وتُحدث فيها ثقوباً اسطوانية بواسطة إطلاقها بروتين البيرفورين (perforin)، وذلك بحث من الانترفيرون.</p>
+                    <ul class="cortex-list">
+                        <li>🔷 تتبلمر جزيئات البيرفورين المفردة بوجود الكالسيوم، والناتج النهائي يشبه الأسطوانة</li>
+                        <li>🔷 يتطلب تدمير الخلية إتمام البلمرة داخل غشاء الخلية، لأن جزيء البيرفورين الأحادي فقط هو القادر على دخول الغشاء</li>
+                        <li>🔷 تسمح الثقوب بدخول الماء والشوارد فتنتفخ الخلية ثم تنتفجر</li>
+                        <li>🔷 لا تستغرق عملية القتل أكثر من دقائق</li>
+                        <li>🔷 الالتصاق الشديد يثير في الخلية القاتلة آلية القتل، ويمنع تأذي الخلايا السليمة المحيطة من تأثير البيرفورين</li>
+                        <li>🔷 لا تتأذى الخلية القاتلة نفسها لوجود بروتين مضاد بداخلها يُسمى بروتكتين</li>
+                    </ul>
+                    <br>
+                    <p><strong>2. إطلاق مواد إنزيمية سامة (Granzymes)</strong> ضمن الخلية الورمية — يحتاج لعدة ساعات (أبطأ من البيرفورين)</p>
+                    <br>
+                    <p><strong>3. تتعاون الأضداد المناعية</strong> التي تطلقها الخلايا البائية مع جهاز المتممة لتثقيب وحل غشاء الخلايا الورمية مما يؤدي لموتها</p>
+                    <br>
+                    <p><strong>4. البالعات الكبيرة:</strong> دور مهم بواسطة بلعمة الخلايا الورمية، أو عن طريق إطلاق سيتوكينات (الانترفيرون وعامل نخر الورم)، أو بتقديمها للمستضد الورمي</p>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                    <p>💡 <strong>تذكر دائماً:</strong> البيرفورين سريع (دقائق) والغرانزيمات بطيئة (ساعات) — فخ محتمل بالخلط بينهما</p>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 3: المناعة الفطرية ضد الأورام -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <span><span class="text-red">🔴 المناعة الفطرية ضد الأورام 🔴</span></span>
+                <span class="accordion-icon">▼</span>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="strategy-box">
+                    <div class="strategy-title">📌 دليل الدراسة الامتحاني:</div>
+                    <ul class="cortex-list">
+                        <li><strong>ماذا يسأل الدكتور من هذه الفقرة؟</strong> أسئلة "عدا" حول وظائف وآلية تفعيل/تثبيط NK، وخصائص NKT</li>
+                        <li><strong>على ماذا يركز الدكتور فيها؟</strong> ربط NK بـ MHC-I (تثبيط) وNKG2D (تفعيل) — وهذا متصل بمفهوم MHC العام في فحص الدكتور</li>
+                        <li><strong>ما أهم فكرة يجب حفظها؟</strong> NK تُثبط بـ MHC-I وتُفعّل بـ NKG2D — الخلايا الورمية تفقد MHC-I فتصبح هدفاً لـNK</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📊 درجة الإشباع: 50%</strong> — مساحة لأسئلة جديدة — ادرس الجوانب غير المألوفة أيضاً (مثل آليات NKT بالتفصيل)</p>
+                </div>
+
+                <div class="content-block red-border">
+                    <div class="section-subhead text-red">⚡ ربط امتحاني:</div>
+                    <ul class="cortex-list">
+                        <li>هذا الموضوع مرتبط بموضوع MHC (TW_w=58%) عند الدكتور بشكل عام</li>
+                        <li>يحب الدكتور ربط مفهوم MHC-I/II عبر كل المحاضرات (هنا في NK، وفي CD8/CD4)</li>
+                        <li>ادرسهما معاً كوحدة واحدة: "كل ما يتعلق بـMHC-I يرتبط بـCD8 والقتل المباشر، وMHC-II بـCD4 والمساعدة"</li>
+                    </ul>
+                </div>
+
+                <div class="content-block orange-border">
+                    <div class="section-subhead text-orange">📖 المحاضرة — شرح موجّه:</div>
+                    <p>تشمل المناعة الفطرية ضد الأورام البالعات والتائيات القاتلة الطبيعية NKT والقاتلة الطبيعية NK والتائيات غاما دلتا، التي ترتكس ضد المستضدات الورمية بدون الاعتماد على الصف الأول من المعقد النسيجي الكبير، أصلاً تكون الخلايا المتحولة شبه عديمة العرض لهذا المعقد الذاتي.</p>
+                    <br>
+                    <p><strong>🔷 A) القاتلة الطبيعية NK:</strong></p>
+                    <ul class="cortex-list">
+                        <li>◾ <strong>تُثبط بواسطة:</strong> MHC class I</li>
+                        <li>◾ <strong>تُفعّل بواسطة:</strong> ligand NKG2D (بروتين يُعرض على سطوح الخلايا المخموجة والورمية والهرمة)</li>
+                        <li>◾ <strong>تقتل الخلايا الورمية بشكل مباشر عبر:</strong> جسر الموت المبرمج Fas-FasL، والبيرفورين، ومحتوى الحبيبات</li>
+                        <li>◾ تنتج كميات كبيرة من IFNγ</li>
+                    </ul>
+                    <br>
+                    <p><strong>🔷 B) التائيات القاتلة الطبيعية NKT:</strong></p>
+                    <ol class="cortex-list">
+                        <li>تنتج TNF-α وIFNγ</li>
+                        <li>تحل الخلايا الورمية بشكل مباشر بواسطة البيرفورين</li>
+                        <li>تفعّل القاتلة الطبيعية والخلايا التغصنية</li>
+                    </ol>
+                    <br>
+                    <p><strong>🔷 C) البالعات:</strong></p>
+                    <p>تقوم بالبلعمة الكلية أو الجزيئية للخلايا الورمية وهضمها على الطريقة الفطرية، أو تقديم المستضدات على الطريقة التلاؤمية</p>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                    <ul class="cortex-list">
+                        <li>⚠️ <strong>فخ الدكتور:</strong> عكس آلية التثبيط/التفعيل في NK (مثلاً وضع NKG2D كمثبط بدل مفعّل)</li>
+                        <li>💡 <strong>تذكر دائماً:</strong> الخلايا الورمية تفقد MHC-I لتهرب من CD8، وهذا بالضبط ما يُفعّل NK</li>
+                        <li>🔁 <strong>تكررت في الدورات:</strong> لم يرد ذكر تكرار صريح لهذا السؤال في البصمة — لكنه يتبع نمط الأسئلة العامة حول MHC</li>
+                    </ul>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+        <!-- Accordion Item 4: المناعة التلاؤمية ضد الأورام -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <strong class="text-red">🔴 المناعة التلاؤمية ضد الأورام 🔴</strong>
+                <b class="accordion-icon">▼</b>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="strategy-box">
+                    <div class="strategy-title">📌 دليل الدراسة الامتحاني:</div>
+                    <ul class="cortex-list">
+                        <li><strong>ماذا يسأل الدكتور من هذه الفقرة؟</strong> أسئلة "عدا" أو ربط حول CD8/MHC-I وCD4/MHC-II ووظائف كل منها</li>
+                        <li><strong>على ماذا يركز الدكتور فيها؟</strong> الربط الصارم بين CD4↔MHC-II↔التقديم الخارجي، وCD8↔MHC-I↔التقديم الداخلي</li>
+                        <li><strong>ما أهم فكرة يجب حفظها؟</strong> "4 يحب 2، و8 يحب 1" — هذا أقوى فخ في كل بصمة الدكتور (فخ C=60%)</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📊 درجة الإشباع: 70%</strong> (من بصمة موضوع اللمفاويات T&B بشكل عام) — الأسئلة هنا متوسطة التكرار — ركّز على الأساسيات والفخ الكلاسيكي</p>
+                </div>
+
+                <div class="content-block red-border">
+                    <div class="section-subhead text-red">⚡ ربط امتحاني:</div>
+                    <ul class="cortex-list">
+                        <li>هذا الموضوع مرتبط بـMHC بنسبة Co=80% عند الدكتور</li>
+                        <li>يربطهما الدكتور دائماً في سؤال واحد يطلب تحديد أي CD يرتبط بأي صف من MHC</li>
+                        <li>ادرسهما معاً كوحدة واحدة دوماً</li>
+                    </ul>
+                </div>
+
+                <div class="content-block orange-border">
+                    <div class="section-subhead text-orange">📖 المحاضرة — شرح موجّه:</div>
+                    <p>تبتلع الخلايا المتغصنة المستضدات الورمية في الأنسجة وتتجه إلى العقد اللمفاوية لتتفاعل هناك مع التائيات الساذجة متسببة بتفعيلها وتكاثرها إلى النسائل المعنية بهذه المستضدات بأنماط من CD4+ وCD8+. تهاجر هذه الخلايا إلى الدوران تاركة العقدة اللمفاوية لتعود ثانية إلى منطقة الورم كخلايا مستفعلة تجاه المستضدات الورمية. وقد وُجد صنف من المتغصنات منتج للانترفيرون والبيرفورين الحال للخلايا.</p>
+                    <br>
+                    <p><strong>🔷 A) التائيات السامة:</strong></p>
+                    <p>تتعشّق مع معقد صف 1 البيبتيدي (MHC-I)، تثقب الجدار الخلوي الورمي بالبيرفورين والأنزيمات أو بطريقة الموت المبرمج</p>
+                    <br>
+                    <p><strong>🔷 B) التائيات المساعدة:</strong></p>
+                    <p>ترتكس لمعقد صف 2 البيبتيدي (MHC-II)، تفرز سيتوكينات (انترفيرون غاما وانترلوكين 2) تحث الخلايا التائية السامة</p>
+                    <br>
+                    <p><strong>🔷 C) الأضداد:</strong></p>
+                    <ul class="cortex-list">
+                        <li>◾ <strong>الهجوم المباشر:</strong> تحصر مستقبلات عامل النمو، تفرمل انقسام الخلايا الورمية، تتسبب بالموت المبرمج</li>
+                        <li>◾ <strong>الهجوم غير المباشر:</strong> القتل الخلوي المعتمد على الأضداد، القتل الخلوي المعتمد على المتممة</li>
+                    </ul>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                    <ul class="cortex-list">
+                        <li>⚠️ <strong>فخ الدكتور:</strong> ربط CD8 بمعقد الصف الثاني (MHC-II) — والصحيح أن CD8 يرتبط بالصف الأول (MHC-I)</li>
+                        <li>💡 <strong>تذكر دائماً:</strong> "4 يحب 2، و8 يحب 1" — مهما تغيرت الصياغة</li>
+                        <li>🔁 <strong>تكررت في الدورات:</strong> سؤال "تتعرف الثائيات CD8 على المحددة المستضدية المسجاة على طبق MHC-II" تكرر 3 مرات عبر الدورات (إجابته خطأ — الصحيح MHC-I)</li>
+                    </ul>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 5: السيتوكينات في مناعة الأورام -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <strong class="text-red">🔴 السيتوكينات في مناعة الأورام 🔴</strong>
+                <b class="accordion-icon">▼</b>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="strategy-box">
+                    <div class="strategy-title">📌 دليل الدراسة الامتحاني:</div>
+                    <ul class="cortex-list">
+                        <li><strong>ماذا يسأل الدكتور من هذه الفقرة؟</strong> سؤال "عدا" عن وظائف TNF (نمط مكرر تاريخياً)، أو أسئلة مباشرة عن اتجاه تأثير كل سيتوكين (مثبط/مفعّل)</li>
+                        <li><strong>على ماذا يركز الدكتور فيها؟</strong> التمييز الدقيق بين السيتوكينات المثبطة (TGF-β, IL-10) والمفعّلة (IL-2, GM-CSF, IFN-γ, IL-12)</li>
+                        <li><strong>ما أهم فكرة يجب حفظها؟</strong> فخ TNF الكلاسيكي: يُضيّق الأوعية في الأنسجة السرطانية (لا السليمة) — والصحيح يُحرّض تشكلها في السليمة</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📊 درجة الإشباع:</strong> غير مذكورة صريحاً في IDA الخاص بهذا الموضوع الفرعي، لكن TNF نفسه مرتبط ببصمة عامة للدكتور حول السيتوكينات (Gap=3 سنوات، احتمال عودة=65%) — مساحة لأسئلة جديدة حول IL-17 وIL-4 (السيتوكينات النوعية) — راجعها أيضاً من محاضرات أخرى إن توفرت</p>
+                </div>
+
+                <div class="content-block red-border">
+                    <div class="section-subhead text-red">⚡ ربط امتحاني:</div>
+                    <p>غير موجود في المحاضرة ترابط Co صريح لهذا الموضوع الفرعي</p>
+                </div>
+
+                <div class="content-block orange-border">
+                    <div class="section-subhead text-orange">📖 المحاضرة — شرح موجّه:</div>
+                    <p>تنظم السيتوكينات المناعتين الفطرية والتلاؤمية تجاه الأورام كما هو مبين في جدول السيتوكينات:</p>
+                    <br>
+                    <p><strong>🔷 جدول دور السيتوكينات في المناعة ضد الأورام:</strong></p>
+                    <ul class="cortex-list">
+                        <li>◾ <strong>GM-CSF:</strong> ينشّط ويُجنّد الخلايا المتغصنة</li>
+                        <li>◾ <strong>IL-12:</strong> يحرّض الاستجابة لـIFN-γ</li>
+                        <li>◾ <strong>TGF-β:</strong> يثبط استجابة القاتلة الطبيعية والتائيات</li>
+                        <li>◾ <strong>IL-10:</strong> يثبط استجابة التائيات</li>
+                        <li>◾ <strong>IFN-γ:</strong> يثبط النمو الورمي ويفعّل الخلايا التغصنية</li>
+                        <li>◾ <strong>IL-2:</strong> يضخّم فعل القاتلة الطبيعية والتائيات</li>
+                    </ul>
+                    <br>
+                    <p><strong>🔷 عامل نخر الورم TNF (Tumor Necrosis Factor):</strong></p>
+                    <ol class="cortex-list">
+                        <li>يتوسط العديد من مراحل الارتكاس الالتهابي للرضوض والأخماج وأمراض المناعة الذاتية</li>
+                        <li>يرفع من القدرة السمية للكريات البيض</li>
+                        <li>يحرض على تشكل الأوعية الدموية في الأنسجة السليمة، بينما يُضيّق الأوعية أو يسدها في الأنسجة السرطانية، فيمنع بذلك التغذية عن الورم</li>
+                        <li>فعّال ضد الخلايا الورمية بالذات لتأثيراته المختلفة هذه، فقد عمد حديثاً لتجربته في علاج بعض أنواع السرطان، وأُشرك معه الانترفيرون، حيث إن كلاً منهما يقوي عمل الآخر</li>
+                    </ol>
+                    <br>
+                    <p><strong>🔷 عامل النمو المحوّل بيتا (TGF-β):</strong></p>
+                    <ol class="cortex-list">
+                        <li>يثبط تمايز وعمل كل من الخلايا البائية والخلايا التائية السامة والخلايا القاتلة الطبيعية</li>
+                        <li>يثبط إنتاج السيتوكينات من اللمفاويات</li>
+                        <li>يقوم بمعاكسة تأثير TNF</li>
+                    </ol>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                    <ul class="cortex-list">
+                        <li>⚠️ <strong>فخ الدكتور:</strong> "يضيّق الأوعية أو يسدها في الأنسجة السليمة" — خطأ، الصحيح في الأنسجة السرطانية</li>
+                        <li>💡 <strong>تذكر دائماً:</strong> TNF يتآزر مع الانترفيرون — وTGF-β يعاكس TNF تماماً</li>
+                        <li>🔁 <strong>تكررت في الدورات:</strong> سؤال TNF تكرر 2018×2021 (احتمال عودة=50%)</li>
+                    </ul>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 6: الواسمات الورمية (مستضدات الخلايا الخبيثة) -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <strong class="text-red">🔴 الواسمات الورمية (مستضدات الخلايا الخبيثة) 🔴</strong>
+                <b class="accordion-icon">▼</b>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="strategy-box">
+                    <div class="strategy-title">📌 دليل الدراسة الامتحاني:</div>
+                    <ul class="cortex-list">
+                        <li><strong>ماذا يسأل الدكتور من هذه الفقرة؟</strong> سؤال "واسمات الأورام" يذكر AFP/CEA ضمن قسم مناعة الأورام (هذا واسمات=60% من IDA الموضوع الفرعي)</li>
+                        <li><strong>على ماذا يركز الدكتور فيها؟</strong> الاستخدام السريري الصحيح (تقييم العلاج لا التشخيص) والقيم النوعية لكل واسم</li>
+                        <li><strong>ما أهم فكرة يجب حفظها؟</strong> AFP وCEA غير مفيدين للتشخيص أو الكشف عند الأصحاء — يفيدان فقط لتقييم فعالية المعالجة/المتابعة</li>
+                    </ul>
+                    <p style="margin-top: 10px;"><strong>📊 درجة الإشباع: 60%</strong> (مدرج ضمن IDA الواسمات لموضوع مناعة الأورام)</p>
+                </div>
+
+                <div class="content-block red-border">
+                    <div class="section-subhead text-red">⚡ ربط امتحاني:</div>
+                    <p>غير موجود ترابط Co صريح في البصمة لهذا الموضوع الفرعي تحديداً</p>
+                </div>
+
+                <div class="content-block orange-border">
+                    <div class="section-subhead text-orange">📖 المحاضرة — شرح موجّه:</div>
+                    <p>مستضدات الخلايا الخبيثة (الواسمات الورمية) — نماذج المستضدات الورمية:</p>
+                    <ul class="cortex-list">
+                        <li>🔷 المستضدات المرافقة للطعوم الورمية: AFP وCEA</li>
+                        <li>🔷 المستضدات الخاصة بالطعوم الورمية</li>
+                        <li>🔷 المنتجات التي يصنعها مريض السرطان كردة فعل لوجود الورم والمنتجات الورمية، كالتيروكسين في سرطان الدرق والفوسفاتاز الحمضة في سرطان البروستات وغيرها</li>
+                        <li>🔷 مستضدات مراحل التميز الخلوي: لكل مرحلة من مراحل نضوج الخلية الطبيعية مستضدات خاصة بهذه المرحلة تُدعى مستضدات التميز الخلوي</li>
+                        <li>🔷 المستضدات الحموية (الفيروسية) التي تظهر على سطح الخلية المؤوفة والمتسرطنة: من المعروف ارتباط بعض الفيروسات بالخباثات مثل سرطان الكبد والتهابه بالفيروس نموذج-B والفيروسات الحليمية ومعظم سرطانات عنق الرحم</li>
+                    </ul>
+                    <br>
+                    <p><strong>🔷 مركبات بروتينية جنينية المنشأ:</strong></p>
+                    <p>تكون هذه البروتينات مفرزة وموجودة على سطوح خلايا الجنين بشكل طبيعي ولا تسبب رد فعل مناعي في الحياة الجنينية، ولكنها وُجدت على سطوح الخلايا الخبيثة بكميات مختلفة ويتم عيار بعضها في المصل، وكأنه في مرحلة التسرطن تعود الخلية إلى مرحلة جنينية أثناء اضطراب توازن تطور مورثاتها، ومنها:</p>
+                    <br>
+                    <p><strong>🔷 A) المستضد السرطاني الجنيني CEA:</strong></p>
+                    <p>تكون هذه البروتينات منحلة في السوائل وموجودة على سطوح الخلايا. تزداد لأكثر من 5 أضعاف بشكل خاص في سرطانات الكولون والمستقيم والسرطان اللبي للغدة النخامية، ويمكن مصادفة زيادتها الأقل في حالات غير سرطانية مثل: تشمع الكبد وانتفاخ الرئة والتدخين الشديد، لذلك لا يفيد للكشف عن السرطانات عند الأصحاء، لكنه مفيد في تقييم فعالية المعالجة</p>
+                    <br>
+                    <p><strong>🔷 B) فيتوبروتين ألفا AFP:</strong></p>
+                    <p>يُصطنع من قبل خلايا كبد الجنين والكيس المحي والسبيل المعدي المعوي، وهو البروتين المصلي الرئيسي عند الجنين. تُصادف مستويات مرتفعة منه عند المصابين بسرطانات كبد بدئية، كما لوحظ في بعض سرطانات الخصية والمبيض والمعثكلة والمعدة. يكون فقط بروتينات مفرزة، ترتفع لأكثر من 5 أضعاف في سرطانات الكبد وبعض أورام الخصية غير المنتشية وتفيد كمشعر لتدبير هذه الأورام. يمكن أن تزداد في حالات التشمع والتهابات الكبد وبعض الأذيات الكبدية الأخرى، لذلك غير مفيد لتشخيص السرطان</p>
+                    <br>
+                    <p><strong>🔷 الواسمات الأكثر نفعاً في الممارسة:</strong></p>
+                    <ol class="cortex-list">
+                        <li>HCG: ينتج في الحالة السوية من قبل المشيمة، ويُستعمل كواسم للتشخيص والمعالجة الموصوفة في أورام المشيمة الغازية الحملية (Trophoblast)</li>
+                        <li>CA-125: كواسم في سرطان المبيض</li>
+                        <li>CA15-3: في سرطان الثدي</li>
+                        <li>PSA: المستضد النوعي للموثة</li>
+                        <li>PAP: الفوسفاتاز الحمضية الموثية</li>
+                        <li>AFP وCEA (مكرران أعلاه)</li>
+                    </ol>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                    <ul class="cortex-list">
+                        <li>⚠️ <strong>فخ الدكتور:</strong> استخدام AFP/CEA كأداة تشخيص للكشف — خطأ، الاستخدام الصحيح هو تقييم فعالية العلاج فقط</li>
+                        <li>💡 <strong>تذكر دائماً:</strong> كلاهما يرتفع أيضاً في حالات غير سرطانية (التشمع خاصة) — لا حصرية للسرطان</li>
+                        <li>🔁 <strong>تكررت في الدورات:</strong> لم يرد تكرار صريح مذكور في البصمة لهذا السؤال تحديداً، لكنه ضمن IDA الواسمات (60%)</li>
+                    </ul>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+        <!-- Accordion Item 7: العوامل المؤهبة للسرطان -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <strong class="text-blue">⚪ العوامل المؤهبة للسرطان ⚪ قليلة الأهمية</strong>
+                <b class="accordion-icon">▼</b>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="content-block yellow-border">
+                    <p><strong>العوامل المؤهبة لحدوث السرطانات:</strong></p>
+                    <ol class="cortex-list">
+                        <li><strong>1. العامل الوراثي:</strong> قابلية إصابة بعض الحيوانات المخبرية بالورم مرتبطة بعامل وراثي جيني. قابلية الأشخاص لتمييز المستضدات والتعامل معها كأجسام أجنبية تقع تحت سيطرة جينات مركب التوافق النسيجي، فقد لوحظ ظهور أورام معينة عند أناس لديهم أنماط خاصة من MHC لا تُحدث استجابة مناعية تجاه المستضدات الورمية</li>
+                        <li><strong>2. توقف عمل الجينات المثبطة</strong></li>
+                        <li><strong>3. اضطراب ترتيب الشفرة الوراثية</strong> لخلل في أنزيمات إصلاح الحمض النووي بسبب الأدوية والأشعة والانتانات</li>
+                        <li><strong>4. عمر المريض:</strong> في طرفي العمر (عدم نضج الجهاز المناعي عند الصغار، ونقص كفاءته في الشيخوخة)</li>
+                        <li><strong>5. نقص المناعة الخلقية والمكتسبة:</strong> الأدوية المثبطة للمناعة والتشعيع</li>
+                    </ol>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 8: آليات تملص الخلايا الورمية من الهجوم المناعي -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <strong class="text-yellow">🔴 آليات تملص الخلايا الورمية من الهجوم المناعي 🟡</strong>
+                <b class="accordion-icon">▼</b>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="content-block yellow-border">
+                    <p><strong>🔷 A) التمويه:</strong></p>
+                    <ul class="cortex-list">
+                        <li>◾ نقص أو غياب معقد الصف الأول (MHC-I) العارض للمستضدات الورمية</li>
+                        <li>◾ غياب المستضدات الورمية، أو قد تبتلع الخلايا الورمية مستضداتها عند تعرضها للهجوم</li>
+                        <li>◾ تغير الخلايا الورمية باستمرار أنواع مستضداتها حسب درجة تشوه الصبغي المتطور فيها</li>
+                        <li>◾ تطلق الخلايا الورمية جزءاً من مستضداتها بشكل متكرر، لتتجول في الدم وترتبط بها التائيات السامة بدل الارتباط بالخلية الورمية لقتلها، وكذلك قد تلجم هذه المستضدات الجائلة فعل الأضداد والمتممة في قتل الخلايا الورمية</li>
+                        <li>◾ خلل أو غياب جزيئات تميم الحث التآذري والالتصاق</li>
+                    </ul>
+                    <br>
+                    <p><strong>🔷 B) تثبيط الاستجابة المناعية (قد يفرز الورم عوامل مثبطة للمناعة):</strong></p>
+                    <ul class="cortex-list">
+                        <li>◾ إبطال إشعارات التائيات السامة</li>
+                        <li>◾ محاصرة مستقبلات إشعارات الموت الخلوي أو عكسها باتجاه الخلايا المناعية (خلل Fas/FasL أو فرط عرض Bcl-2 = بروتين مضاد للموت المبرمج، يُصنف بأنه مسرطن)</li>
+                        <li>◾ إفراز السيتوكينات المثبطة: يثبط IL-10 عرض المستضدات وإنتاج IL-2، يزيد TGF-β من اصطناع IL-10، يتخطى الاستعراف المناعي ويثبط الوظائف المفعلة للتائيات وكذلك إنتاج السيتوكينات</li>
+                        <li>◾ الأدوية السرطانية أو التشعيع</li>
+                    </ul>
+                    <br>
+                    <p><strong>🔷 C) تخطي الاستجابة المناعية:</strong></p>
+                    <p>النمو الورمي السريع الذي يتجاوز سرعة التفتيش المناعي أو يستغل جهله</p>
+                    <br>
+                    <p><strong>🔷 D) الخلايا المثبطة للمناعة:</strong></p>
+                    <p>التائيات CD25+ مسؤولة عن التحمل المناعي للذات وتثبط تكاثر اللمفاويات</p>
+                    <br>
+                    <p><strong>🔷 E) إنتاج الأضداد المثبطة:</strong></p>
+                    <p>لتخلق التائيات السامة والمساعدة ونشاطها وتكاثرها</p>
+                    <br>
+                    <p><strong>🔷 F) خلل التائيات والخلايا التغصنية:</strong></p>
+                    <p>فشل تربية التائيات على معرفة الذات والغير (مناعة ذاتية، أورام)</p>
+                    <br>
+                    <p><strong>🔷 G) وجود الأضداد الساترة:</strong></p>
+                    <p>يرتبط الضد منفرداً مع مستضدات الخلية الورمية، وبالتالي تحتجب مستضدات التعرف هذه عن التائيات السامة، فلا تعود قادرة على التعرف على الخلايا الورمية. تدخلت الأضداد بشكل فاعل لسلامة الخلايا الورمية أو إطالة عمرها، وتُدعى هذه الظاهرة "التآزر المناعي" Immunological Enhancement</p>
+                    <br>
+                    <p><strong>🔷 H) البروستاغلاندينات:</strong></p>
+                    <p>عوامل نمو للورم ولاستحداث الأوعية التي تغذي الورم</p>
+                </div>
+
+                <div class="alert-box">
+                    <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                    <p>💡 <strong>تذكر دائماً:</strong> التآزر المناعي = الأضداد الساترة تحمي الخلية الورمية (مصطلح يحب الدكتور اختباره بصيغة تعريف)</p>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 9: العلاجات المناعية للأورام -->
+        <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+                <strong class="text-blue">⚪ العلاجات المناعية للأورام ⚪ قليلة الأهمية</strong>
+                <b class="accordion-icon">▼</b>
+            </button>
+            <div class="accordion-content">
+                
+                <div class="content-block yellow-border">
+                    <p><strong>المبادئ الأساسية في علاج الأورام المناعي:</strong></p>
+                    <ol class="cortex-list">
+                        <li>1. حث الاستجابة المناعية المضادة بزيادة عدد الخلايا المستفعلة، أو بإنتاج السيتوكينات ذات العلاقة</li>
+                        <li>2. إضعاف الآليات المثبطة</li>
+                        <li>3. تعديل الخلايا الورمية لزيادة استمناعها وجعله أكثر حساسية للدفاعات المناعية</li>
+                        <li>4. تحسين تحمل العلاجين الكيماوي والشعاعي كحث إنتاجية نقي العظم بواسطة GM-CSF</li>
+                    </ol>
+                    <br>
+                    <p><strong>طرق العلاج المناعي للأورام (دخلت الممارسة في سبعينات القرن الماضي):</strong></p>
+                    <ol class="cortex-list">
+                        <li><strong>1. العلاج بالسيتوكينات:</strong> تهدف لتحريض الخلايا المناعية على قتل الخلايا الورمية، تُستخدم في أورام الكلية وميلانوما الجلد (IL-2 يحرض الاستجابة للانترفيرون غاما) ومنها: Interferon، IL-2، TNF. تُفعّل هذه السيتوكينات الخلايا القاتلة والبالعات، ويمكن أيضاً حقن مورثة GM-CSF والعالم B7 في الخلية الورمية. الآثار الجانبية (انخفاض ضغط الدم، المتلازمة شبه الانتانية) منعت الاستعمال الواسع، واقتصر السريري على الساركومات والنقائل وسرطان الكبد والميلانومات</li>
+                        <li><strong>2. العلاج بالأضداد:</strong> تصنيع ضد لبروتين موجود فقط على سطح الخلية الورمية، أو أضداد موجهة ضد الوسائط الورمية المثبطة لتفعيل الاستجابة المناعية (PD-L1 وبروتين CTLA4)، وعادة يتم دمج علاج كيمائي أو مواد سامة مع الجسم المضاد</li>
+                        <li><strong>3. العلاج بالتطعيم:</strong> أخذ عينة من الورم واستخلاص البروتينات وحقنها في المريض لأكثر من مرة ممزوجة بمادة محفزة للجهاز المناعي</li>
+                        <li><strong>4. العلاج بالخلايا الشجيرية:</strong> نقل الخلايا الشجيرية الضعيفة من دم المريض إلى المزارع الخلوية لتكثيرها وتنشيطها وتحميلها بالمستضدات الورمية ثم حقنها في المريض</li>
+                        <li><strong>5. العلاج بالخلايا المناعية:</strong> فصل الخلايا المناعية من دم المريض أو النسيج الورمي، تنشيطها في المزارع الخلوية 1-3 أسابيع، ثم إعادة حقنها</li>
+                        <li><strong>6. العلاج المناعي الكيماوي:</strong> جمع جرعة صغيرة من الكيماوي مع العلاج المناعي تؤدي لنتائج أفضل من كل منهما بمفرده</li>
+                        <li><strong>7. العلاج بالميكروبات:</strong> مستخلصات ميكروبية كعقار BCG في سرطان المثانة، يعتمد على ارتباط مكونات الميكروب بمستقبلات على الخلايا المناعية أو الورمية لتنشيطها أو حثها على الموت المبرمج</li>
+                    </ol>
+                </div>
+
+                <div class="block-actions">
+                    <button class="btn-action" onclick="copyBlockText(this)">📋 نسخ محتوى الفقرة</button>
+                    <button class="btn-action" onclick="toggleReadStatus(this)">✓ تعليم كقراءة</button>
+                </div>
+            </div>
+        </div>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleAccordion(headerElem) {
+            const item = headerElem.parentElement;
+            item.classList.toggle('active');
+        }
+
+        function copyBlockText(btnElem) {
+            const accordionContent = btnElem.closest('.accordion-content') || btnElem.closest('.strategy-box');
+            if (!accordionContent) return;
+            
+            const textToCopy = accordionContent.innerText
+                .replace(/📋 نسخ محتوى الفقرة|✓ تعليم كقراءة|تم التعليم كقراءة|📋 نسخ استراتيجية الامتحان/g, '')
+                .trim();
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btnElem.innerHTML;
+                btnElem.innerHTML = '✨ تم النسخ بنجاح!';
+                btnElem.style.borderColor = 'var(--neon-blue)';
+                setTimeout(() => {
+                    btnElem.innerHTML = originalText;
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function toggleReadStatus(btnElem) {
+            btnElem.classList.toggle('read-active');
+            if (btnElem.classList.contains('read-active')) {
+                btnElem.innerHTML = '✓ تم التعليم كقراءة';
+            } else {
+                btnElem.innerHTML = '✓ تعليم كقراءة';
+            }
+        }
+
+        window.onscroll = function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+    </script>
+</body>
+</html>
