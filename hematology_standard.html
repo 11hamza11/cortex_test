@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORTEX TEAM | نظام ABO - د. سيرين ابراهيم</title>
+
+    <!-- Dynamic Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0b0c10;
+            --card-bg: #1a1d24;
+            --card-border: #2a2e3d;
+            --text-main: #d1d5db;
+            --text-white: #ffffff;
+            --neon-red: #ff2a5f;
+            --neon-orange: #ff7b00;
+            --neon-yellow: #ffd000;
+            --neon-blue: #66fcf1;
+            --neon-green: #00ff88;
+            --alert-bg: rgba(255, 42, 95, 0.12);
+            --alert-border: #ff2a5f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Tajawal', sans-serif;
+            line-height: 1.8;
+            padding: 15px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* CORTEX Header Style */
+        .cortex-header {
+            background: linear-gradient(135deg, #12131c 0%, #1a1c29 100%);
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 25px rgba(255, 42, 95, 0.35);
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cortex-logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--neon-red);
+            text-shadow: 0 0 12px var(--neon-red);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .cortex-subtitle {
+            color: var(--neon-blue);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .doctor-tag {
+            display: inline-block;
+            background: rgba(102, 252, 241, 0.1);
+            color: var(--neon-blue);
+            padding: 4px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--neon-blue);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        /* General Card & Strategy Header */
+        .intro-card {
+            background: var(--card-bg);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .intro-title {
+            color: var(--neon-blue);
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Accordion Styling */
+        .accordion-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            background: #141822;
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            border-bottom: 1px solid transparent;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: #1e2433;
+        }
+
+        .accordion-header.active {
+            border-bottom-color: var(--card-border);
+            background: #1a202c;
+        }
+
+        .accordion-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--neon-red);
+            text-shadow: 0 0 8px rgba(255, 42, 95, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .accordion-title.orange {
+            color: var(--neon-orange);
+            text-shadow: 0 0 8px rgba(255, 123, 0, 0.5);
+        }
+
+        .accordion-title.yellow {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px rgba(255, 208, 0, 0.5);
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+            padding: 0 20px;
+            background: #12151c;
+        }
+
+        .accordion-content.open {
+            padding: 20px;
+            max-height: 5000px;
+        }
+
+        /* Content Blocks */
+        .guide-box {
+            background: rgba(102, 252, 241, 0.04);
+            border-right: 4px solid var(--neon-blue);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .guide-box-title {
+            color: var(--neon-blue);
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .lecture-text {
+            color: var(--text-white);
+            font-size: 1.05rem;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-right: 0;
+            margin: 10px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-right: 22px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li::before {
+            content: '🔷';
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 0.85rem;
+        }
+
+        .sub-bullet-list {
+            list-style: none;
+            padding-right: 20px;
+            margin: 8px 0;
+        }
+
+        .sub-bullet-list li {
+            position: relative;
+            padding-right: 20px;
+            margin-bottom: 6px;
+        }
+
+        .sub-bullet-list li::before {
+            content: '◾';
+            position: absolute;
+            right: 0;
+            color: var(--neon-blue);
+        }
+
+        /* Alert Box Pulsing */
+        .alert-box {
+            background: var(--alert-bg);
+            border: 2px solid var(--alert-border);
+            border-radius: 10px;
+            padding: 15px 18px;
+            margin: 20px 0;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 42, 95, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0); }
+        }
+
+        .alert-title {
+            color: var(--neon-red);
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--card-border);
+            justify-content: flex-end;
+        }
+
+        .btn {
+            background: #252b38;
+            color: #fff;
+            border: 1px solid #3a455a;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(102, 252, 241, 0.4);
+        }
+
+        .btn-read.read {
+            background: var(--neon-green);
+            color: #000;
+            border-color: var(--neon-green);
+        }
+
+        .divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- CORTEX TEAM Header -->
+    <header class="cortex-header">
+        <div class="cortex-logo">CORTEX TEAM</div>
+        <div class="cortex-subtitle">Standard Study — المنصة التعليمية التفاعلية الفائقة</div>
+        <div class="doctor-tag">📚 دليلك الامتحاني الشامل بعقلية د. سيرين ابراهيم</div>
+    </header>
+
+    <!-- General Strategy Card -->
+    <div class="intro-card">
+        <div class="intro-title">🧭 استراتيجية الإجابة عند د. سيرين ابراهيم</div>
+        
+        <div style="margin-bottom: 15px;">
+            <strong style="color: var(--neon-yellow);">⚡ الأنماط التي يجب تذكرها دائماً:</strong>
+            <ul class="sub-bullet-list">
+                <li>الفخ الأكبر: وضع مانع تخثر خاطئ لاختبار معين — هنا في الزمر: الخلط بين خصائص الأضداد الطبيعية والمناعية</li>
+                <li>الفخ الثاني: عكس خصائص A1 وA2 أو نسبهما</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <strong style="color: var(--neon-yellow);">🎯 أسلوب الامتحان:</strong>
+            <ul class="sub-bullet-list">
+                <li>نسبة أسئلة "عدا": 55% — انتبه لكلمة عدا دائماً</li>
+                <li>نسبة الأسئلة المباشرة MCQ: 40% — إجابة مباشرة بدون فخ</li>
+                <li>الدكتورة تحب ربط كل مفهوم بتطبيقه المخبري المباشر</li>
+                <li>الأرقام والنسب مهمة جداً عندها (80%، 20%، مليون موقع، 200-300 ألف)</li>
+                <li>شكل الأسئلة: MCQ + Except بالتساوي</li>
+            </ul>
+        </div>
+
+        <hr class="divider">
+
+        <div>
+            <strong style="color: var(--neon-red);">⚠️ كيف تستخدم هذه الرسالة:</strong>
+            <ul class="sub-bullet-list">
+                <li>الفقرات 🔴🟠 ادرسها بعمق — ستُسأل عنها</li>
+                <li>الفقرات 🟡 اقرأها بسرعة — ظهورها متوسط</li>
+                <li>الفقرات ⚪⬛ اطلع عليها فقط</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 1 -->
+    <div class="accordion-item" id="sec-1">
+        <div class="accordion-header" onclick="toggleAccordion('sec-1')">
+            <div class="accordion-title">
+                <span>🔴</span>
+                <span>أهمية نظام ABO</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة من هذه الفقرة؟</strong> سؤال "عدا" عن خصائص نظام ABO أو أهميته — أو MCQ مباشر عن سبب خطورة عدم التوافق</li>
+                    <li><strong>على ماذا تركز الدكتورة فيها؟</strong> جملة "النظام الوحيد مع أضداد تسبب تفعيلاً سريعاً للمتممة"</li>
+                    <li><strong>ما أهم فكرة يجب حفظها؟</strong> التوافق بين كريات المعطي ومصل المتلقي هو الأساس — وعدم التوافق يهدد الحياة</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=85% (الأسئلة ستكون مكررة غالباً — ركّز على الأسئلة التاريخية)
+                </div>
+                <div style="margin-top: 8px;">
+                    <strong>⚡ ربط امتحاني:</strong>
+                    <ul class="sub-bullet-list">
+                        <li>هذا الموضوع مرتبط بـ الكريات الحمراء بنسبة 40%</li>
+                        <li>الدكتورة تربط التوافق دائماً بسؤال عن مستضدات الكريات أو استثناءات النقل</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>تم وصف 35 نظاماً للزمر الدموية</li>
+                    <li>نظام ABO هو الأكثر أهمية في:
+                        <ol style="padding-right: 25px; margin: 5px 0;">
+                            <li>نقل الدم</li>
+                            <li>زرع الأعضاء</li>
+                            <li>المستضدات الموروثة</li>
+                        </ol>
+                    </li>
+                    <li>تاريخياً:
+                        <ul class="sub-bullet-list">
+                            <li>لاندشتاينر وصف O, A, B</li>
+                            <li>كاستيللو وصف AB عام 1902</li>
+                            <li>لاندشتاينر وويمر حددا التنميط ABO بالتصالب المباشر والعكسي</li>
+                        </ul>
+                    </li>
+                    <li>قاعدة التوافق الأساسية:
+                        <ul class="sub-bullet-list">
+                            <li>التوافق بين كريات دم المعطي ومصل المتلقي هو الأساس</li>
+                            <li>النظام الوحيد مع أضداد تسبب تفعيلاً سريعاً للمتممة</li>
+                            <li>عدم التوافق قد يسبب حالة مهددة للحياة</li>
+                        </ul>
+                    </li>
+                    <li>مثال توضيحي:
+                        <ul class="sub-bullet-list">
+                            <li>شخص زمرة B يتلقى كريات A</li>
+                            <li>الضد الطبيعي anti-A في دمه يرتبط بالكريات المنقولة ويخربها</li>
+                        </ul>
+                    </li>
+                    <li>الزمرة O:
+                        <ul class="sub-bullet-list">
+                            <li>خالية من المستضدات على سطح الكريات</li>
+                            <li>أصحابها معطون عامون</li>
+                        </ul>
+                    </li>
+                    <li>قاعدة توافق نقل الدم لا تأخذ بالاعتبار أضداد المعطي لأن:
+                        <ul class="sub-bullet-list">
+                            <li>تُعطى بكمية قليلة جداً فتتمدد في كتلة دم المتلقي</li>
+                            <li>تتحد مع مستضدات ABO المعبّر عنها على مستوى الخلايا البطانية الوعائية</li>
+                        </ul>
+                    </li>
+                    <li>استثناءات القاعدة:
+                        <ol style="padding-right: 25px; margin: 5px 0;">
+                            <li>نقل دم كتلي من O لشخص A: الضد المنقول بكميات كبيرة قد يخرب كريات المتلقي</li>
+                            <li>شخص O قد يكون معطياً خطراً إذا يملك anti-A منافٍ للمتلقي A أو AB — يجب نقل كريات حمر مركّزة فقط في هذه الحالة</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> "O معطٍ عام بشكل مطلق" — خطأ! هناك استثناءات<br>
+                    💡 <strong>تذكر دائماً:</strong> النظام الوحيد مع تفعيل سريع للمتممة = ABO<br>
+                    🔁 <strong>تكررت في الدورات:</strong> سؤال عن O كمعطٍ عام واستثناءاته
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 2 -->
+    <div class="accordion-item" id="sec-2">
+        <div class="accordion-header" onclick="toggleAccordion('sec-2')">
+            <div class="accordion-title">
+                <span>🔴</span>
+                <span>مستضدات ABO جينياً</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة من هذه الفقرة؟</strong> MCQ عن ماذا يضيف كل أليل — أو "عدا" عن خصائص الأليلات</li>
+                    <li><strong>على ماذا تركز الدكتورة فيها؟</strong> ما يضيفه كل أليل وموقع الجين على الصبغي</li>
+                    <li><strong>ما أهم فكرة؟</strong> A يضيف N-acetylgalactosamine — B يضيف D-galactose — i لا يضيف شيئاً</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=85% (الأسئلة ستكون مكررة غالباً)
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>الجين ABO على الصبغي رقم 9</li>
+                    <li>ثلاثة أليلات:
+                        <ul class="sub-bullet-list">
+                            <li>الأليل A (I<sup>A</sup>): يضيف N-acetylgalactosamine للسكر النهائي من المستضد H</li>
+                            <li>الأليل B (I<sup>B</sup>): يضيف D-galactose للسكر النهائي من المستضد H</li>
+                            <li>الأليل i (متنحٍ): لا يضيف أي سكر — يعطي زمرة O</li>
+                        </ul>
+                    </li>
+                    <li>المورثات A وB مسيطرة — المورثة O مقهورة بالنسبة لهما</li>
+                    <li>النموذج المتخالف اللواقح I<sup>A</sup>I<sup>B</sup> يضيف كلا السكرين النهائيين = زمرة AB</li>
+                    <li>مستضد H جينياً:
+                        <ul class="sub-bullet-list">
+                            <li>جين H على الصبغي رقم 19</li>
+                            <li>الأليلات: H, h — حيث h متنحٍ</li>
+                            <li>المستضد H يتواجد على الكريات عند النمط الوراثي HH أو Hh</li>
+                            <li>جين H يشفّر لإنزيم fucosyltransferase 1,2</li>
+                            <li>هذا الإنزيم يضيف سكر الفوكوز إلى C2 من الغالاكتوز</li>
+                            <li>الغالاكتوز هو السكر النهائي للمادة السلفية (PS)</li>
+                        </ul>
+                    </li>
+                    <li>نظام الإفراز SE:
+                        <ul class="sub-bullet-list">
+                            <li>جين SE مسؤول عن تعبير المستضد H المتوضع على بنى البروتينات السكرية في المفرزات</li>
+                            <li>الأليلات: SE, se — حيث se متنحٍ</li>
+                            <li>النمط SE/SE أو SE/se = مُفرِز (80% من الناس)</li>
+                            <li>النمط se/se = غير مُفرِز — لا يملك المستضد H الذواب ولا A أو B في سوائل الجسم</li>
+                        </ul>
+                    </li>
+                    <li>A-B antigens:
+                        <ul class="sub-bullet-list">
+                            <li>جين A يشفّر لإنزيم ترانسفيراز يضيف N-acetylgalactosamine للسكر النهائي من المستضد H</li>
+                            <li>جين B يشفّر لإنزيم ترانسفيراز يضيف D-galactose للسكر النهائي من المستضد H</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> الخلط بين صبغي الجين ABO (9) وصبغي الجين H (19)<br>
+                    💡 <strong>تذكر:</strong> A يضيف N-acetylgalactosamine — B يضيف D-galactose<br>
+                    🔁 <strong>تكرر في الدورات:</strong> سؤال عن ما يضيفه كل أليل
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+    <!-- MAIN LECTURE CONTENT - SECTION 3 -->
+    <div class="accordion-item" id="sec-3">
+        <div class="accordion-header" onclick="toggleAccordion('sec-3')">
+            <div class="accordion-title orange">
+                <span>🟠</span>
+                <span>المستضدات ABH على الكريات الحمر</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة؟</strong> MCQ عن ترتيب كمية H أو شروط تواجد كل مستضد</li>
+                    <li><strong>ما أهم فكرة؟</strong> الترتيب: O &gt; A2 &gt; B &gt; A2B &gt; A1 &gt; A1B</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=85%
+                </div>
+                <div style="margin-top: 8px;">
+                    <strong>⚡ ربط امتحاني:</strong>
+                    <ul class="sub-bullet-list">
+                        <li>مرتبط بـ بومباي وتحت الزمر الفرعية</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>شروط تواجد المستضدات على الكريات:
+                        <ul class="sub-bullet-list">
+                            <li>المستضد H: عند النمط الوراثي HH أو Hh</li>
+                            <li>المستضد A: عند HH أو Hh مع AA أو AO أو AB</li>
+                            <li>المستضد B: عند HH أو Hh مع BB أو BO أو AB</li>
+                        </ul>
+                    </li>
+                    <li>ترتيب كمية المادة H من الأكثر للأقل:
+                        <div style="margin: 8px 0; font-weight: bold; color: var(--neon-green);">
+                            O — A2 — B — A2B — A1 — A1B
+                        </div>
+                    </li>
+                    <li>سبب غنى O بالمادة H:
+                        <ul class="sub-bullet-list">
+                            <li>تملك أليلات صامتة — لا يُضاف أي سكر للمادة H</li>
+                            <li>فتبقى المادة H على حالها بأكبر كمية</li>
+                        </ul>
+                    </li>
+                    <li>ظهور المستضدات على سطح الكريات الحمر:
+                        <ul class="sub-bullet-list">
+                            <li>المستضدات سكاكر نهائية تتوضع على عديدات سكرية بروتينية أو شحمية</li>
+                            <li>تتشكل بمرحلة الاريتروبلاست في الجهاز الشبكي البطاني</li>
+                            <li>عند نقذف النواة يتمزق الغشاء فيصبح الوجه الداخلي للخارج</li>
+                            <li>فتكون عليه المستضدات والإنزيمات</li>
+                            <li>غشاء الكرية الحمراء كالغابة: مستضدات خارج الكرية + جزء ضمن الغشاء + جزء داخل السيتوبلاسما</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> قلب الترتيب — A1 الأكثر H أم O؟ الصحيح: O الأكثر دائماً<br>
+                    💡 <strong>تذكر:</strong> O = أكثر H لأن لا شيء يُضاف لها
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 4 -->
+    <div class="accordion-item" id="sec-4">
+        <div class="accordion-header" onclick="toggleAccordion('sec-4')">
+            <div class="accordion-title yellow">
+                <span>🟡</span>
+                <span>المستضدات ABH في سوائل الجسم</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة:</p>
+                <ul class="bullet-list">
+                    <li>السوائل الإفرازية تتضمن: اللعاب، البلازما، السائل المنوي</li>
+                    <li>الحالة الإفرازية: جين SE مسؤول عن تعبير المستضد H في مفرزات الجسم</li>
+                    <li>80% من الناس مُفرِزون — يعبّرون عن H في المفرزات ثم يُعدَّل لـ A أو B</li>
+                    <li>غير المُفرِزين (se/se): لا يملكون المستضد H الذواب ولا A أو B في سوائل الجسم</li>
+                </ul>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 5 -->
+    <div class="accordion-item" id="sec-5">
+        <div class="accordion-header" onclick="toggleAccordion('sec-5')">
+            <div class="accordion-title yellow">
+                <span>🟡</span>
+                <span>النمطان I وII للمادة السلفية Precursors</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة:</p>
+                <ul class="bullet-list">
+                    <li>نمطان للمادة السلفية لمستضدات ABH: النمط I والنمط II</li>
+                    <li>كلا النمطين نفس التركيب الأولي من السكاكر لكن الروابط مختلفة:
+                        <ul class="sub-bullet-list">
+                            <li>النمط I: رابطة بين C1 من الغالاكتوز وC3 من N-acetylglucosamine</li>
+                            <li>النمط II: رابطة بين C1 من الغالاكتوز وC4 من N-acetylglucosamine</li>
+                        </ul>
+                    </li>
+                    <li>منشأ ABH على الكريات الحمر: من سلاسل النمط II فقط</li>
+                    <li>منشأ ABH في البلازما: من كلا النمطين I وII</li>
+                    <li>النمط II H له 4 أشكال:
+                        <ul class="sub-bullet-list">
+                            <li>H1 وH2: سلاسل بسيطة مستقيمة لشحوم سكرية</li>
+                            <li>H3 وH4: لديهما سلاسل جانبية متفرعة</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 6 -->
+    <div class="accordion-item" id="sec-6">
+        <div class="accordion-header" onclick="toggleAccordion('sec-6')">
+            <div class="accordion-title">
+                <span>🔴</span>
+                <span>تحت الزمر الفرعية لنظام ABO</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة؟</strong> MCQ عن نسب A1 وA2 أو عدد المواقع المستضدية أو كيفية التمييز</li>
+                    <li><strong>ما أهم فكرة؟</strong> 80% هم A1 — 20% هم A2 — A2 قد يشكّل anti-A1</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=85% (الأسئلة ستكون مكررة غالباً)
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>تحديد الزمرة الدموية بمرحلتين:
+                        <ol style="padding-right: 25px; margin: 5px 0;">
+                            <li>البحث عن مستضدات الكريات باستعمال مصول antiA وantiB</li>
+                            <li>البحث عن الأضداد البلازمية بمساعدة كريات اختبار A وB وO</li>
+                        </ol>
+                    </li>
+                    <li>تحت زمر A:
+                        <ul class="sub-bullet-list">
+                            <li>A1: تقوم المورثة A1 بالتشفير لإنزيم ترانسفيراز يضيف السكر النهائي على كل سلاسل H — عدد المواقع المستضدية: ~مليون موقع</li>
+                            <li>A2: تقوم المورثة A2 بالتشفير لإنزيم ترانسفيراز يضيف السكر النهائي على السلاسل المستقيمة فقط — عدد المواقع المستضدية: 200-300 ألف فقط</li>
+                        </ul>
+                    </li>
+                    <li>النسب:
+                        <ul class="sub-bullet-list">
+                            <li>80% من ذوي الزمرة A أو AB هم A1</li>
+                            <li>20% هم A2</li>
+                        </ul>
+                    </li>
+                    <li>كلاهما يتفاعلان بقوة مع anti-A</li>
+                    <li>للتمييز بينهما يُستخدم anti-A1 = مادة lectin dollicus biflorus</li>
+                    <li>أهمية تحت الزمرة A2 سريرياً:
+                        <ul class="sub-bullet-list">
+                            <li>حاملو جينة A2 قد يشكّلون أضداد anti-A1</li>
+                            <li>قد تسبب عدم توافق أثناء التصالب</li>
+                            <li>التمييز بين A1 وA2 ليس له فائدة على مستوى نقل الدم أو التوليد لأن الأضداد المتولدة طبيعية لانظامية</li>
+                        </ul>
+                    </li>
+                    <li>الزمرة B تملك تحت زمر فرعية أيضاً — أقل شيوعاً من A</li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> "A2 لها مليون موقع مستضدي" — خطأ! هذا A1 — A2 لها 200-300 ألف فقط<br>
+                    💡 <strong>تذكر دائماً:</strong> 80% A1 — 20% A2<br>
+                    🔁 <strong>تكررت في الدورات:</strong> السؤال عن نسبة A1 وA2 وأهمية A2
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+    <!-- MAIN LECTURE CONTENT - SECTION 7 -->
+    <div class="accordion-item" id="sec-7">
+        <div class="accordion-header" onclick="toggleAccordion('sec-7')">
+            <div class="accordion-title">
+                <span>🔴</span>
+                <span>الأنماط الظاهرية النادرة — بومباي Oh</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة؟</strong> MCQ أو "عدا" عن خصائص النمط بومباي</li>
+                    <li><strong>ما أهم فكرة؟</strong> غياب H + وجود anti-H = متلقٍ خطير</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=85%
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>النمط الظاهري Oh = بومباي:
+                        <ul class="sub-bullet-list">
+                            <li>نادر جداً</li>
+                            <li>يتميز بغياب المستضدات A وB والمادة H على سطح الكريات الحمر</li>
+                            <li>وجود anti-H وanti-A وanti-B في البلازما</li>
+                            <li>الشخص البومباي: متلقٍ خطير — لا يستطيع تلقي إلا دماً مطابقاً له تماماً</li>
+                        </ul>
+                    </li>
+                    <li>أنماط H الناقصة غير المُفرزة (h/h — se/se):
+                        <ul class="sub-bullet-list">
+                            <li>غياب المستضد H على الكريات والمفرزات</li>
+                            <li>وجود anti-H في البلازما</li>
+                            <li>H nuls: لا يملكون المستضد H أبداً</li>
+                            <li>H faibles: يملكون قليلاً من المادة H يمكن كشفه بتقنية الغمر والتثبيت</li>
+                        </ul>
+                    </li>
+                    <li>أنماط H الناقصة المُفرزة (h/h — SE):
+                        <ul class="sub-bullet-list">
+                            <li>غياب المستضد H على الكريات</li>
+                            <li>وجود المادة H في المفرزات</li>
+                            <li>في البلازما يمكن كشف anti-H بشدة تفاعلية ضعيفة جداً</li>
+                        </ul>
+                    </li>
+                    <li>النمط AB-cis:
+                        <ul class="sub-bullet-list">
+                            <li>غير متجانس — تم وصف ثلاثة أنماط: cis-AB، cis-A2B، cis-A2B3</li>
+                            <li>cis-A2B3 الأكثر شيوعاً يتصف بـ:
+                                <ol style="padding-right: 20px; margin: 5px 0;">
+                                    <li>مستضد A بنفس قوة A في A2B تقليدي</li>
+                                    <li>مستضد B مضعّف جداً</li>
+                                    <li>زيادة كبيرة في المستضد H</li>
+                                </ol>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>الزمر A أو B الضعيفة:
+                        <ul class="sub-bullet-list">
+                            <li>تعبير ضعيف بسبب نقص عدد المواقع المستضدية أو خلل أو طفرة مورثية</li>
+                            <li>تُكشف أحياناً فقط باختبارات الغمر والتثبيت</li>
+                            <li>لهؤلاء المرضى نُنقل كريات O وبلازما AB</li>
+                        </ul>
+                    </li>
+                    <li>النمط B المكتسب:
+                        <ul class="sub-bullet-list">
+                            <li>يُلاحظ عند أصحاب الزمرة A1 في سياق انتان هضمي أو سرطان كولون</li>
+                            <li>السبب: تأثير deacetylase من الجرثوم المسبب للخمج</li>
+                            <li>يحول N-acetylgalactosamine (محددة A) إلى galactosamine (قريب من محددة B)</li>
+                            <li>الظاهرة عابرة — تستمر فقط باستمرار عمر الكريات الخاضعة لتأثيرها</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> "بومباي يمكنه تلقي دم O" — خطأ! anti-H عنده سيخرب كريات O أيضاً<br>
+                    💡 <strong>تذكر:</strong> بومباي لا يتلقى إلا دماً مطابقاً له تماماً<br>
+                    🔁 <strong>تكررت في الدورات:</strong> سؤال عن Du البحث — راجع محاضرة Rh
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 8 -->
+    <div class="accordion-item" id="sec-8">
+        <div class="accordion-header" onclick="toggleAccordion('sec-8')">
+            <div class="accordion-title">
+                <span>🔴</span>
+                <span>ميزات مستضدات نظام ABO</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة؟</strong> "عدا" عن ميزات مستضدات ABO — الفخ: ذكر القرنية أو العظام كأماكن وجود المستضد</li>
+                    <li><strong>ما أهم فكرة؟</strong> غائب عن القرنية والعظام والنسج العصبية — نضج في سن الثالثة</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=80%
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>الميزة 1 — نظام نسيجي شامل:
+                        <ul class="sub-bullet-list">
+                            <li>ليس حكراً على الكريات الحمر</li>
+                            <li>موجود على كل الخلايا: هضمية، بولية، تنفسية، بشرة جلدية...</li>
+                            <li>غائب عن: القرنية — العظام — النسج العصبية</li>
+                            <li>لذا له دور في زراعة الأعضاء</li>
+                        </ul>
+                    </li>
+                    <li>الميزة 2 — ليس حكراً على الإنسان:
+                        <ul class="sub-bullet-list">
+                            <li>السكاكر موجودة على الأغذية والجراثيم</li>
+                        </ul>
+                    </li>
+                    <li>الميزة 3 — تطور المستضدات:
+                        <ul class="sub-bullet-list">
+                            <li>تتشكل من الأسبوع السادس جنينياً</li>
+                            <li>لا تكون ناضجة لحظة الولادة</li>
+                            <li>تصل للنضج في سن الثالثة من العمر</li>
+                            <li>لذا: اختبار الزمرة عند أطفال أقل من سنة بالطريقة الكريوية فقط</li>
+                        </ul>
+                    </li>
+                    <li>الميزة 4 — التعادل بين الأضداد والمستضدات:
+                        <ul class="sub-bullet-list">
+                            <li>يتميز بوجود تعادل بين أضداد طبيعية نظامية وأضداد لا نظامية في البلازما</li>
+                            <li>ومستضدات على سطح الكريات الحمر</li>
+                        </ul>
+                    </li>
+                    <li>الميزة 5 — مواد الزمرة المنحلة:
+                        <ul class="sub-bullet-list">
+                            <li>تُشاهد عند 80% من الناس الذين لديهم الزمرة الإفرازية</li>
+                            <li>في: البلازما، ريق، حليب، لعاب، سائل منوي</li>
+                            <li>وليس فقط على سطح الخلايا</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> "ABO موجود على القرنية" — خطأ! القرنية والعظام والنسج العصبية خالية منه<br>
+                    💡 <strong>تذكر:</strong> القرنية + العظام + النسج العصبية = ثلاثة استثناءات ثابتة<br>
+                    🔁 <strong>تكررت في الدورات:</strong> سؤال "عدا" عن الأماكن التي يتواجد فيها المستضد
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MAIN LECTURE CONTENT - SECTION 9 -->
+    <div class="accordion-item" id="sec-9">
+        <div class="accordion-header" onclick="toggleAccordion('sec-9')">
+            <div class="accordion-title">
+                <span>🔴</span>
+                <span>ميزات أضداد نظام ABO</span>
+            </div>
+            <div class="accordion-icon">▼</div>
+        </div>
+        <div class="accordion-content">
+            
+            <div class="guide-box">
+                <div class="guide-box-title">📌 دليل الدراسة الامتحاني:</div>
+                <ul class="sub-bullet-list">
+                    <li><strong>ماذا تسأل الدكتورة؟</strong> مقارنة بين الأضداد الطبيعية والمناعية — "عدا" أو MCQ عن خصائص كل منهما</li>
+                    <li><strong>ما أهم فكرة؟</strong> الطبيعية = IgM + حرارة +4 + لا حلّ — المناعية = IgG + حرارة 37 + حلّ + تجتاز المشيمة</li>
+                </ul>
+                <div style="margin-top: 10px; color: var(--neon-yellow); font-weight: bold;">
+                    📊 درجة الإشباع: SAT=85% (الأسئلة ستكون مكررة غالباً)
+                </div>
+                <div style="margin-top: 8px;">
+                    <strong>⚡ ربط امتحاني:</strong>
+                    <ul class="sub-bullet-list">
+                        <li>مرتبط بـ التخثر بنسبة غير مباشرة — كلاهما يتعلق بخصائص بروتينات البلازما</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lecture-text">
+                <p style="font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">📖 المحاضرة — شرح موجّه:</p>
+                <ul class="bullet-list">
+                    <li>الأضداد الطبيعية (anti-A وanti-B):
+                        <ul class="sub-bullet-list">
+                            <li>توجد بشكل منتظم عند كل الأفراد المحرومين من المستضد الموافق</li>
+                            <li>طبيعية: موجودة بدون أي تمنيع مغاير</li>
+                            <li>نظامية: موجودة بشكل دائم بدءاً من الشهر الثالث من الحياة</li>
+                            <li>تنتج في الطفولة الباكرة كاستجابة لمستضدات A وB في جراثيم الفلورا المعوية</li>
+                        </ul>
+                    </li>
+                    <li>أنواع الأضداد الطبيعية:
+                        <ul class="sub-bullet-list">
+                            <li>نظامية: anti-A وanti-B وanti-A,B</li>
+                            <li>لا نظامية: anti-A1 وanti-H</li>
+                        </ul>
+                    </li>
+                    <li>صفات الأضداد الطبيعية المشتركة:
+                        <ol style="padding-right: 25px; margin: 5px 0;">
+                            <li>درجة حرارتها المثلى: +4° — طوبة بالحرارة</li>
+                            <li>راصّة قوية في الوسط الملحي</li>
+                            <li>يمكن أن تتعدل بمواد الزمرة المنحلة</li>
+                            <li>ليس لها قدرة حالّة</li>
+                            <li>تتألف أساساً من IgM + IgG وحتى IgA</li>
+                        </ol>
+                    </li>
+                    <li>تظهر anti-A وanti-B بين الشهر الثالث والسادس</li>
+                    <li>تبلغ الحد الأقصى نحو عمر 10 سنوات</li>
+                    <li>لذا: اختبار الزمرة عند أطفال أقل من سنة بالطريقة الكريوية فقط</li>
+                    <li>الأضداد المناعية:
+                        <ul class="sub-bullet-list">
+                            <li>تنتج من تمنيع مغاير: حمل، لقاحات (كزاز، دفتيريا)، إصابة بالحمى التيفية، تماس العضوية مع مواد من منشأ حيواني أو جرثومي</li>
+                            <li>توجد عند بعض أصحاب الزمرة O</li>
+                        </ul>
+                    </li>
+                    <li>صفات الأضداد المناعية:
+                        <ol style="padding-right: 25px; margin: 5px 0;">
+                            <li>درجة حرارتها المثلى: 37° — غير طوبة بالحرارة (10 دقائق عند 70°)</li>
+                            <li>ليست راصّة في الوسط الملحي</li>
+                            <li>تتعدل بصعوبة بمواد الزمرة المنحلة A أو B</li>
+                            <li>حالّة</li>
+                            <li>تتألف أساساً من IgG</li>
+                        </ol>
+                    </li>
+                    <li>هذه الأضداد قادرة على اجتياز الحاجز المشيمي</li>
+                    <li>بالتالي يمكن أن يكون لها علاقة بمشاكل التمنيع الجنيني الوالدي</li>
+                    <li>الأضداد الذاتية:
+                        <ul class="sub-bullet-list">
+                            <li>توجد أضداد ذاتية anti-A وanti-B من طبيعة IgM</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="alert-box">
+                <div class="alert-title">🚨 ملاحظات امتحانية:</div>
+                <div style="color: #fff;">
+                    ⚠️ <strong>فخ الدكتورة:</strong> "الأضداد الطبيعية تجتاز المشيمة" — خطأ! المناعية (IgG) هي التي تجتاز<br>
+                    ⚠️ <strong>فخ ثانٍ:</strong> "الأضداد الطبيعية حالّة" — خطأ! ليس لها قدرة حالّة<br>
+                    💡 <strong>تذكر:</strong> الطبيعية = IgM = لا تجتاز المشيمة = لا تحلّ — المناعية = IgG = تجتاز = تحلّ<br>
+                    🔁 <strong>تكررت في الدورات:</strong> مقارنة الأضداد الطبيعية والمناعية
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn" onclick="copySection(this)">📋 نسخ محتوى الفقرة</button>
+                <button class="btn btn-read" onclick="toggleRead(this)">✓ تعليم كقراءة</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- INTERACTIVE JAVASCRIPT LOGIC -->
+<script>
+    function toggleAccordion(id) {
+        const item = document.getElementById(id);
+        const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
+
+        const isOpen = content.classList.contains('open');
+
+        if (isOpen) {
+            content.classList.remove('open');
+            header.classList.remove('active');
+        } else {
+            content.classList.add('open');
+            header.classList.add('active');
+        }
+    }
+
+    function copySection(button) {
+        const accordionContent = button.closest('.accordion-content');
+        const lectureText = accordionContent.querySelector('.lecture-text').innerText;
+        
+        navigator.clipboard.writeText(lectureText).then(() => {
+            const originalText = button.innerText;
+            button.innerText = "✓ تم النسخ بنجاح!";
+            button.style.background = "#00ff88";
+            button.style.color = "#000";
+            
+            setTimeout(() => {
+                button.innerText = originalText;
+                button.style.background = "#252b38";
+                button.style.color = "#fff";
+            }, 2000);
+        }).catch(err => {
+            alert('تعذر النسخ: ' + err);
+        });
+    }
+
+    function toggleRead(button) {
+        button.classList.toggle('read');
+        if (button.classList.contains('read')) {
+            button.innerText = "✓ تم القراءة";
+        } else {
+            button.innerText = "✓ تعليم كقراءة";
+        }
+    }
+</script>
+
+</body>
+</html>
